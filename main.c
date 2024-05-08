@@ -17,6 +17,7 @@ void read_players(const char *filename, Player players[], int *num_players);
 void show_all_players(Player players[], int num_players);
 void show_player_information(Player players[], int num_players, const char *player_name);
 void show_most_experienced_player(Player players[], int num_players);
+
 // Define other functions for different options similarly
 
 int main() {
@@ -33,6 +34,7 @@ int main() {
 
     // Show menu options in an infinite loop
     int choice;
+    char playerName[100];
     while (1) {
         printf("\nMenu:\n");
         printf("1. Show All Players\n");
@@ -48,10 +50,12 @@ int main() {
                 show_all_players(players, num_players);
                 break;
             case 2:
-                // Take player name as input and call corresponding function
+                printf("\nEnter player name:");
+                scanf(" %[^\n]s", playerName);
+                show_player_information(players,num_players,playerName);
                 break;
             case 3:
-                //show_most_experienced_player(players, num_players);
+                show_most_experienced_player(players, num_players);
                 break;
             // Add cases for other menu options similarly
             case 9:
@@ -89,10 +93,38 @@ void read_players(const char *filename, Player players[], int *num_players) {
 void show_all_players(Player players[], int num_players) {
     printf("\nAll Players:\n");
     for (int i = 0; i < num_players; i++) {
-        printf("%s, %d, %s, %d, %d, %d\n", players[i].full_name, players[i].age,
+        printf("\nName:%s\nAge:%d\nPlayer Role:%s\nOdi Match Played:%d\nTotal Run:%d\nHighest Run:%d\n", players[i].full_name, players[i].age,
                players[i].player_role, players[i].odi_match, players[i].total_run, players[i].highest_run);
     }
 }
 
 // Implement other functions similarly for different menu options
+void show_player_information(Player players[], int num_players, const char *player_name) {
+    // Search for the player with the given name
+    for (int i = 0; i < num_players; i++) {
+        if (strcmp(players[i].full_name, player_name) == 0) {
+            printf("\nName:%s\nAge:%d\nPlayer Role:%s\nOdi Match Played:%d\nTotal Run:%d\nHighest Run:%d\n", players[i].full_name, players[i].age,
+                   players[i].player_role, players[i].odi_match, players[i].total_run, players[i].highest_run);
+            return; // Exit the function after printing player information
+        }
+    }
+    // If player not found, print message
+    printf("Player not found.\n");
+}
 
+
+void show_most_experienced_player(Player players[], int num_players){
+        int mep_index =0;
+        for(int i=0; i<num_players;i++){
+
+
+
+            if((players[i].odi_match) >= (players[mep_index].odi_match)){
+                mep_index = i;
+            }
+        }
+
+        printf("\nThe most experienced player:%s\n\n",players[mep_index].full_name);
+
+
+}
