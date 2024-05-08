@@ -17,6 +17,7 @@ void read_players(const char *filename, Player players[], int *num_players);
 void show_all_players(Player players[], int num_players);
 void show_player_information(Player players[], int num_players, const char *player_name);
 void show_most_experienced_player(Player players[], int num_players);
+void show_the_new_commer_player(Player players[], int num_players);
 
 // Define other functions for different options similarly
 
@@ -40,6 +41,7 @@ int main() {
         printf("1. Show All Players\n");
         printf("2. Show A Particular player information\n");
         printf("3. Show the MOST Experienced Player (MEP)\n");
+        printf("4. Show the New Commer Player (NCP)\n");
         // Add other menu options similarly
         printf("9. Exit/Quit\n");
         printf("Enter your choice: ");
@@ -58,6 +60,9 @@ int main() {
                 show_most_experienced_player(players, num_players);
                 break;
             // Add cases for other menu options similarly
+            case 4:
+                show_the_new_commer_player(players, num_players);
+                break;
             case 9:
                 printf("Exiting program.\n");
                 exit(0);
@@ -125,6 +130,23 @@ void show_most_experienced_player(Player players[], int num_players){
         }
 
         printf("\nThe most experienced player:%s\n\n",players[mep_index].full_name);
+
+
+}
+
+void show_the_new_commer_player(Player players[], int num_players){
+
+        int newCom_index =0;
+        for(int i=0; i<num_players;i++){
+
+
+
+            if((players[i].age) <= (players[newCom_index].age)){
+                newCom_index = i;
+            }
+        }
+
+        printf("\nThe New Commer Player:%s\n",players[newCom_index].full_name);
 
 
 }
