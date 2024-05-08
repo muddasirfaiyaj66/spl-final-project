@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define a structure for a player
 typedef struct {
     char full_name[50];
     int age;
@@ -12,14 +11,14 @@ typedef struct {
     int highest_run;
 } Player;
 
-// Function prototypes
+
 void read_players(const char *filename, Player players[], int *num_players);
 void show_all_players(Player players[], int num_players);
 void show_player_information(Player players[], int num_players, const char *player_name);
 void show_most_experienced_player(Player players[], int num_players);
 void show_the_new_commer_player(Player players[], int num_players);
+void Show_the_top_scorer_player(Player players[], int num_players);
 
-// Define other functions for different options similarly
 
 int main() {
     char filename[100];
@@ -42,6 +41,7 @@ int main() {
         printf("2. Show A Particular player information\n");
         printf("3. Show the MOST Experienced Player (MEP)\n");
         printf("4. Show the New Commer Player (NCP)\n");
+        printf("5. Show the top scorer player(TSP)\n");
         // Add other menu options similarly
         printf("9. Exit/Quit\n");
         printf("Enter your choice: ");
@@ -62,6 +62,9 @@ int main() {
             // Add cases for other menu options similarly
             case 4:
                 show_the_new_commer_player(players, num_players);
+                break;
+            case 5:
+                Show_the_top_scorer_player(players,num_players);
                 break;
             case 9:
                 printf("Exiting program.\n");
@@ -148,5 +151,21 @@ void show_the_new_commer_player(Player players[], int num_players){
 
         printf("\nThe New Commer Player:%s\n",players[newCom_index].full_name);
 
+
+}
+
+void Show_the_top_scorer_player(Player players[], int num_players){
+    int tps_index =0;
+
+        for(int i=0; i<num_players;i++){
+
+
+
+            if((players[i].total_run) >= (players[tps_index].total_run)){
+               tps_index = i;
+            }
+        }
+
+        printf("\nThe top scorer player:%s\n",players[tps_index].full_name);
 
 }
