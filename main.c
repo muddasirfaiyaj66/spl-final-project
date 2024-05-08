@@ -11,14 +11,13 @@ typedef struct {
     int highest_run;
 } Player;
 
-
 void read_players(const char *filename, Player players[], int *num_players);
 void show_all_players(Player players[], int num_players);
 void show_player_information(Player players[], int num_players, const char *player_name);
 void show_most_experienced_player(Player players[], int num_players);
 void show_the_new_commer_player(Player players[], int num_players);
 void Show_the_top_scorer_player(Player players[], int num_players);
-
+void show_most_valuable_player(Player players[], int num_players);
 
 int main() {
     char filename[100];
@@ -42,7 +41,7 @@ int main() {
         printf("3. Show the MOST Experienced Player (MEP)\n");
         printf("4. Show the New Commer Player (NCP)\n");
         printf("5. Show the top scorer player(TSP)\n");
-        // Add other menu options similarly
+        printf("8. Show the Most Valuable Player (MVP)\n");
         printf("9. Exit/Quit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -54,17 +53,19 @@ int main() {
             case 2:
                 printf("\nEnter player name:");
                 scanf(" %[^\n]s", playerName);
-                show_player_information(players,num_players,playerName);
+                show_player_information(players, num_players, playerName);
                 break;
             case 3:
                 show_most_experienced_player(players, num_players);
                 break;
-            // Add cases for other menu options similarly
             case 4:
                 show_the_new_commer_player(players, num_players);
                 break;
             case 5:
-                Show_the_top_scorer_player(players,num_players);
+                Show_the_top_scorer_player(players, num_players);
+                break;
+            case 8:
+                show_most_valuable_player(players, num_players);
                 break;
             case 9:
                 printf("Exiting program.\n");
@@ -106,7 +107,7 @@ void show_all_players(Player players[], int num_players) {
     }
 }
 
-// Implement other functions similarly for different menu options
+// Function to display information of a specific player
 void show_player_information(Player players[], int num_players, const char *player_name) {
     // Search for the player with the given name
     for (int i = 0; i < num_players; i++) {
@@ -120,52 +121,55 @@ void show_player_information(Player players[], int num_players, const char *play
     printf("Player not found.\n");
 }
 
-
-void show_most_experienced_player(Player players[], int num_players){
-        int mep_index =0;
-        for(int i=0; i<num_players;i++){
-
-
-
-            if((players[i].odi_match) >= (players[mep_index].odi_match)){
-                mep_index = i;
-            }
+// Function to show the most experienced player
+void show_most_experienced_player(Player players[], int num_players) {
+    int mep_index = 0;
+    for (int i = 0; i < num_players; i++) {
+        if (players[i].odi_match >= players[mep_index].odi_match) {
+            mep_index = i;
         }
-
-        printf("\nThe most experienced player:%s\n\n",players[mep_index].full_name);
-
-
+    }
+    printf("\nThe most experienced player:%s\n\n", players[mep_index].full_name);
 }
 
-void show_the_new_commer_player(Player players[], int num_players){
-
-        int newCom_index =0;
-        for(int i=0; i<num_players;i++){
-
-
-
-            if((players[i].age) <= (players[newCom_index].age)){
-                newCom_index = i;
-            }
+// Function to show the new comer player
+void show_the_new_commer_player(Player players[], int num_players) {
+    int newCom_index = 0;
+    for (int i = 0; i < num_players; i++) {
+        if (players[i].age <= players[newCom_index].age) {
+            newCom_index = i;
         }
-
-        printf("\nThe New Commer Player:%s\n",players[newCom_index].full_name);
-
-
+    }
+    printf("\nThe New Comer Player:%s\n", players[newCom_index].full_name);
 }
 
-void Show_the_top_scorer_player(Player players[], int num_players){
-    int tps_index =0;
+// Function to show the top scorer player
+void Show_the_top_scorer_player(Player players[], int num_players) {
+    int tps_index = 0;
+    for (int i = 0; i < num_players; i++) {
+        if (players[i].total_run >= players[tps_index].total_run) {
+            tps_index = i;
+        }
+    }
+    printf("\nThe top scorer player:%s\n", players[tps_index].full_name);
+}
 
-        for(int i=0; i<num_players;i++){
+void show_most_valuable_player(Player players[], int num_players) {
+    int mvp_index = 0;
+    float max_value = 0;
 
-
-
-            if((players[i].total_run) >= (players[tps_index].total_run)){
-               tps_index = i;
-            }
+    for (int i = 0; i < num_players; i++) {
+        float value = players[i].age + players[i].odi_match + players[i].total_run + players[i].highest_run +
+                      (players[i].total_run / players[i].odi_match) + (players[i].highest_run / players[i].age);
+        if (strcmp(players[i].player_role, "Allrounder") == 0) {
+            value += 50;
         }
 
-        printf("\nThe top scorer player:%s\n",players[tps_index].full_name);
+        if (value >= max_value) {
+            max_value = value;
+            mvp_index = i;
+        }
+    }
 
+    printf("\nThe Most Valuable Player:%s\n", players[mvp_index].full_name);
 }
