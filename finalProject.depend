@@ -1,8 +1,6 @@
 # depslib dependency file v1.0
-1715158369 source:f:\uiu\2nd-trimester\spl lab\project\finalproject\main.c
+1715267116 source:f:\uiu\2nd-trimester\spl lab\project\finalproject\main.c
 	<stdio.h>
-	<stdlib.h>
-	<string.h>
 
 1715159293 source:f:\uiu\2nd-trimester\spl lab\project\untitled1.c
 	<stdio.h>

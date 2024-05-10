@@ -29,14 +29,14 @@ int main() {
     printf("Enter the input file name(input.txt): ");
     scanf("%s", file);
 
-    // Array to store players
-    Player players[50]; // Assuming a maximum of 50 players
-    int num_players = 0; // Number of players read from the file
 
-    // Read player data from the file
+    Player players[50];
+    int num_players = 0;
+
+
     read_players(file, players, &num_players);
 
-    // Show menu options in an infinite loop
+
     int choice;
 
     while (1) {
@@ -93,7 +93,7 @@ void read_players(const char *filename, Player players[], int *num_players) {
     }
 
     fscanf(file, "%d", num_players);
-    getchar(); // Consume newline character
+    getchar();
 
     for (int i = 0; i < *num_players; i++) {
         fscanf(file, " %[^\n] %d %[^\n] %d %d %d\n",
@@ -105,7 +105,7 @@ void read_players(const char *filename, Player players[], int *num_players) {
 }
 
 // Function to display information of all players
-//Complete By Faiyaj
+//Completed By Faiyaj
 void all_players(Player players[], int num_players) {
     Sleep(1000);
     printf("\nAll Players:\n");
@@ -117,25 +117,25 @@ void all_players(Player players[], int num_players) {
 }
 
 // Function to display information of a specific player
-//Complete By Faiyaj
+//Completed By Faiyaj
 void player_information(Player players[], int num_players) {
     char player_name[100];
     printf("\nEnter player name:");
     scanf(" %[^\n]s", player_name);
     for (int i = 0; i < num_players; i++) {
-        if (strcmp(players[i].full_name, player_name) == 0) {
+        if (strcasecmp(players[i].full_name, player_name) == 0) {
             Sleep(1000);
             printf("\nName:%s\nAge:%d\nPlayer Role:%s\nOdi Match Played:%d\nTotal Run:%d\nHighest Run:%d\n", players[i].full_name, players[i].age,
                    players[i].player_role, players[i].odi_match, players[i].total_run, players[i].highest_run);
-            return; // Exit the function after printing player information
+            return;
         }
     }
-    // If player not found, print message
-    printf("Player not found.\n");
+
+    printf("\nPlayer not found.\n");
 }
 
 // Function to display the most experienced player
-//Complete By Faiyaj
+//Completed By Faiyaj
 void MEP(Player players[], int num_players) {
     int mep_index = 0;
     for (int i = 0; i < num_players; i++) {
@@ -149,7 +149,7 @@ void MEP(Player players[], int num_players) {
 }
 
 // Function to display the new comer player
-//Complete By Irfad
+//Completed By Irfad
 void NCP(Player players[], int num_players) {
     int min_age = players[0].age;
     int ncp_index = 0;
@@ -166,7 +166,7 @@ void NCP(Player players[], int num_players) {
 }
 
 // Function to display the top scorer player
-//Complete By Irfad
+//Completed By Irfad
 void TSP(Player players[], int num_players) {
     int max_runs = players[0].total_run;
     int tps_index = 0;
@@ -182,7 +182,7 @@ void TSP(Player players[], int num_players) {
     Sleep(500);
 }
 // Function to display the Hard Hitter Player
-//Complete By Arefin
+//Completed By Arefin
 void HHP(Player players[], int num_players)
 {
     float avg[num_players];
@@ -202,11 +202,11 @@ void HHP(Player players[], int num_players)
         }
     }
     Sleep(1000);
-    printf("\nThe hard hitter player is:%s\n\n\n",players[j].full_name);
+    printf("\nThe hard hitter player: %s\n\n\n",players[j].full_name);
     Sleep(500);
 }
 // Function to display the Highest Run Taker Player
-//Complete By Arefin
+//Completed By Arefin
 void HRTP(Player players[], int num_players)
 {
     int temp = players[0].highest_run;
@@ -220,18 +220,18 @@ void HRTP(Player players[], int num_players)
         }
     }
     Sleep(1000);
-    printf("\nThe Highest Run Taker Player is:%s\n\n\n",players[j].full_name);
+    printf("\nThe Highest Run Taker Player: %s\n\n\n",players[j].full_name);
     Sleep(500);
 }
-// Function to display the  MOST Valuable Player
-//Complete By Irfad
+// Function to display the  most valuable player
+//Completed By Irfad
 void MVP(Player players[], int num_players) {
     int mvp_index = 0;
     float max_value = 0;
 
     for (int i = 0; i < num_players; i++) {
         float value = players[i].age + players[i].odi_match + players[i].total_run + players[i].highest_run +
-                      (players[i].total_run / players[i].odi_match) + (players[i].highest_run / players[i].age);
+                      ((float)players[i].total_run / players[i].odi_match) + ((float)players[i].highest_run / players[i].age);
         if (strcmp(players[i].player_role, "Allrounder") == 0) {
             value += 50;
         }
@@ -242,10 +242,10 @@ void MVP(Player players[], int num_players) {
         }
     }
     Sleep(1000);
-    printf("\nThe Most Valuable Player: %s\n\n\n", players[mvp_index].full_name);
+    printf("\nThe Most Valuable Player is %s with a score of: %.2f\n\n\n", players[mvp_index].full_name,max_value);
 }
 // Function to display the Allrounders
-//Complete By Arefin
+//Completed By Arefin
 void the_allrounders(Player players[], int num_players)
 {
     int flag=0;
@@ -254,7 +254,7 @@ void the_allrounders(Player players[], int num_players)
     {
         if (strcmp(players[i].player_role, "Allrounder") == 0)
         {   Sleep(1000);
-            printf("%s \n",players[i].full_name);
+            printf("%s \n\n",players[i].full_name);
             flag++;
         }
     }
